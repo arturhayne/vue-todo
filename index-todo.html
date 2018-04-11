@@ -1,0 +1,110 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Template</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+  <link href="vendors/vuetify.css" rel="stylesheet" type="text/css"></link>
+  <link href="styles.css" rel="stylesheet" type="text/css">
+  <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+</head>
+
+<body>
+  <div id="app">
+    <v-app>
+      <v-container fluid>
+
+
+        <v-layout row wrap>
+          <v-flex xs12>
+            <form @submit.prevent="salvar">
+              <v-card>
+                <v-card-title primary-title>
+                  <v-flex xs12>
+                    <div>
+                      <h3 class="headline">Cadastro de tarefas</h3>
+                      <div>
+                        <v-text-field label="Tarefa" id="testing" v-model="tarefa.descricao"></v-text-field>
+                      </div>
+                    </div>
+                  </v-flex>
+                </v-card-title>
+                <v-card-actions>
+                  <v-btn flat color="primary" type="submit">Salvar</v-btn>
+                  <v-btn flat type="button" v-show="estaEditando" @click="cancelaEdicao">Cancelar</v-btn>
+                </v-card-actions>
+              </v-card>
+            </form>
+          </v-flex>
+        </v-layout>
+        <v-layout row wrap class="mt-2">
+
+
+
+          <v-flex xs6>
+
+            <painel titulo="Tarefas em aberto">
+
+              <lista :tarefas="tarefasAbertas" @edit-solicit="preararParaEditarTarefa" @alt-status-solicit="finalizarTarefa" @delete-solicit="removerTarefa">
+              </lista>
+            </painel>
+          </v-flex>
+
+
+
+          <v-flex xs6>
+            <painel
+              class="ml-1"
+              titulo="Tarefas em concluidas">
+              <lista :tarefas="tarefasConcluidas">
+              </lista>
+            </painel>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-app>
+  </div>
+
+  <script type="text/x-template" id="lista">
+    <div class="lista">
+        <table>
+          <tr v-for="tarefaVariavel in tarefas">
+              <td>{{tarefaVariavel.descricao}}</td>
+              <td v-show="!tarefaVariavel.finalizada ">
+                  <v-btn flat icon @click="editar(tarefaVariavel)">
+                    <v-icon>edit</v-icon>
+                  </v-btn>
+                  <v-btn flat icon color="green" @click="alterarStatus(tarefaVariavel)">
+                    <v-icon>check</v-icon>
+                  </v-btn>
+                  <v-btn flat icon color="red" @click="deleteT(tarefaVariavel)">
+                    <v-icon>delete</v-icon>
+                  </v-btn>
+                </td>
+          </tr>
+        </table>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="painel">
+    <v-card >
+      <v-card-title primary-title>
+        <v-container>
+          <h3 class="headline">{{titulo}}</h3>
+          <slot></slot>
+
+        </v-container>
+      </v-card-title>
+    </v-card>
+  </script>
+
+  <script src="vendors/vue.js"></script>
+  <script src="vendors/vue-router.js"></script>
+  <script src="vendors/vuetify.js"></script>
+  <script src="vendors/lodash.js"></script>
+  <script src="index-todo.js"></script>
+</body>
+
+</html>
