@@ -1,0 +1,66 @@
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+    <link href="vendors/vuetify.css" rel="stylesheet" type="text/css"></link>
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+  </head>
+  <body>
+    <div id="app">
+      <v-app >
+        <v-container >
+            <v-layout row wrap>
+                <v-toolbar color="blue" dark>
+                    <v-toolbar-title>TODO LIST</v-toolbar-title>
+                    <v-spacer></v-spacer>
+                  </v-toolbar>
+                <v-flex xs10>
+
+                    <v-text-field
+                    v-model="descricao"
+                    name="input-7-1"
+                    label="Digite aqui a descrição da tarefa"
+                    multi-line
+                  ></v-text-field>
+
+        <v-btn  color = "blue" v-show="!edit"style="border:1px solid black;" @click="addTarefa(descricao)">Adiciona tarefa</v-btn>
+        <v-btn v-show="edit" style="border:1px solid black;" @click="editar()">Editar tarefa</v-btn>
+        <br>
+        <v-toolbar color="blue" dark>
+            <v-toolbar-title>Lista de Tarefas</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+
+            <v-card v-for="(item,index) in tarefas" style="margin:5px;" xs5>
+            <label> {{ item.descricao }}</label>
+
+             <v-chip color="primary" text-color="white">{{ item.status }} </v-chip>
+            <v-btn v-show="!edit"  @click="removeTarefa(index)">Remover tarefa</v-btn>
+
+            <v-btn v-show="!edit"  @click="alterarStatus(index)">Alterar Status</v-btn>
+
+            <v-btn v-show="!edit"  @click="alterarTelaEdicao(index)">Editar</v-btn>
+            </v-card>
+
+
+      </v-flex>
+    </v-layout>
+      </v-container>
+      </v-app>
+    </div>
+
+    <script type="text/x-template" id="componente">
+    </script>
+
+    <script src="vendors/vue.js"></script>
+    <script src="vendors/vue-router.js"></script>
+    <script src="vendors/vuetify.js"></script>
+    <script src="index.js"></script>
+  </body>
+
+</html>
